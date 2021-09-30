@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n:kml xmlns:n="http://www.opengis.net/kml/2.2">
+	<n:Placemark id="E47">
+		<n:name>E47</n:name>
+		<n:description>RVCFire:Engine:E47:391</n:description>
+		<n:TimeStamp>
+			<n:when>2012-01-07T07:28:53Z</n:when>
+		</n:TimeStamp>
+		<n:styleUrl>#msn_engine</n:styleUrl>
+		<n:ExtendedData>
+			<n:Data name="timestamp">
+				<n:value>2012-01-07T07:28:53Z</n:value>
+			</n:Data>
+			<n:Data name="course">
+				<n:value>74</n:value>
+			</n:Data>
+			<n:Data name="speed">
+				<n:value>0</n:value>
+			</n:Data>
+			<n:Data name="Group">
+				<n:value>RVCFire</n:value>
+			</n:Data>
+			<n:Data name="SubGroup">
+				<n:value>Engine</n:value>
+			</n:Data>
+			<n:Data name="UnitID">
+				<n:value>E48</n:value>
+			</n:Data>
+		</n:ExtendedData>
+		<n:Point>
+			<n:coordinates>-117.537585,33.93873,0</n:coordinates>
+		</n:Point>
+	</n:Placemark>
+</n:kml>

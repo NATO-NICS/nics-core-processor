@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2008-2021, Massachusetts Institute of Technology (MIT)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Folder>
+	<name>LAYERNAME</name>
+	<GroundOverlay>
+		<name>WMS Overlay</name>
+		<Icon>
+			<href>MAPSERVERURL/geoserver/WORKSPACENAME/wms?layers=WORKSPACENAME:LAYERNAME&amp;VERSION=1.1.1&amp;REQUEST=GetMap&amp;SRS=EPSG:4326&amp;WIDTH=1024&amp;HEIGHT=1024&amp;STYLES=collabRoomStyle&amp;TRANSPARENT=TRUE&amp;FORMAT=image/png8</href>
+			<refreshMode>onInterval</refreshMode>
+			<refreshInterval>60</refreshInterval>
+			<viewRefreshMode>onStop</viewRefreshMode>
+			<viewBoundScale>1</viewBoundScale>
+		</Icon>
+		<LatLonBox>
+			<north>40</north>
+			<south>30</south>
+			<east>-110</east>
+			<west>-120</west>
+		</LatLonBox>
+	</GroundOverlay>
+
+  <NetworkLink>
+	 <name>Feature Info</name>
+	 <visibility>1</visibility>
+	 <open>1</open>
+	 <LookAt>
+		<longitude>-116.75</longitude>
+		<latitude>33.9</latitude>
+		<altitude>10000</altitude>
+		<range>50000</range>
+		<tilt>0.0</tilt>
+		<heading>0.0</heading>
+		<altitudeMode>clampToGround</altitudeMode>
+	 </LookAt>
+	 <Url>
+		<href><![CDATA[MAPSERVERURL/geoserver/WORKSPACENAME/wms?layers=WORKSPACENAME:LAYERNAME&request=GetMap&service=wms&styles=collabRoomStyle_blank&format_options=SUPEROVERLAY:false;KMPLACEMARK:false;KMSCORE:40;KMATTR:true;&srs=EPSG:4326&height=1024&width=1024&format=application/vnd.google-earth.kmz&transparent=false&version=1.1.1]]></href>
+		<refreshMode>onInterval</refreshMode>
+		<refreshInterval>60</refreshInterval>
+		<viewRefreshMode>onStop</viewRefreshMode>
+		<viewRefreshTime>1</viewRefreshTime>
+	 </Url>
+  </NetworkLink>
+  <LookAt>
+	 <longitude>-116.75</longitude>
+	 <latitude>33.9</latitude>
+	 <altitude>10000</altitude>
+	 <range>50000</range>
+	 <tilt>0.0</tilt>
+	 <heading>0.0</heading>
+	 <altitudeMode>clampToGround</altitudeMode>
+  </LookAt>
+</Folder>
+</kml>

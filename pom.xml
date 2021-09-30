@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2008-2021, Massachusetts Institute of Technology (MIT)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Maven artifact details -->
+  <groupId>edu.mit.ll.nics.processor</groupId>
+  <artifactId>nics-core-processor</artifactId>
+  <version>7.0.9-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <!-- Project information -->
+  <name>Next-Generation Incident Command System (NICS) Processors</name>
+  <description>The master pom for all NICS processor modules</description>
+  <organization>
+    <name>MIT Lincoln Laboratory</name>
+    <url>http://www.ll.mit.edu</url>
+  </organization>
+  <inceptionYear>2009</inceptionYear>
+
+  <!-- Listing all the sub-components of the NICS codebase -->
+  <modules>
+    <!--<module>collab-feed-manager</module>
+    <module>geodatafeed-consumer</module>
+    <module>json-pli-consumer</module>
+    <module>gst2gml</module>
+    <module>spring-runner</module>
+    <module>component-manager-archive-builder</module>-->
+    <module>email-consumer</module>
+    <module>incorg-room-creator</module>
+  </modules>
+
+  <!-- Properties for use in the master NICS pom and the poms of any submodules.
+    These are used to specify things like dependency and plugin versions, configuration
+    values that should be quickly configurable, etc. -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- External dependency versions -->
+    <camel.version>3.0.1</camel.version> <!-- 2.15.5 -->
+    <commons-cli.version>1.2</commons-cli.version>
+    <commons-codec.version>1.14</commons-codec.version>
+    <commons-collections.version>3.1</commons-collections.version>
+    <commons-digester.version>1.8</commons-digester.version>
+    <commons-fileupload.version>1.2.2</commons-fileupload.version>
+    <commons-httpclient.version>3.1</commons-httpclient.version>
+    <commons-io.version>2.6</commons-io.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-logging.version>1.2</commons-logging.version>
+    <commons-management.version>1.0</commons-management.version>
+    <esapi.version>2.1.0</esapi.version>
+    <ejb.version>3.0</ejb.version>
+    <cxf.version>2.6.1</cxf.version>
+    <geotools.version>14.2</geotools.version>
+    <geosolutions.version>1.0.8</geosolutions.version> <!-- not sure how to know what this is when geotools changes -->
+    <gson.version>2.8.6</gson.version>
+    <hsqldb.version>2.3.0</hsqldb.version>
+    <hibernate-core.version>4.1.6.Final</hibernate-core.version>
+    <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
+    <hibernate-spatial.version>4.0</hibernate-spatial.version>
+    <hibernate-spatial-postgis.version>1.0</hibernate-spatial-postgis.version>
+    <htmlunit.version>2.12</htmlunit.version>
+    <jak.version>2.2.0</jak.version>
+    <javaee-web.version>6.0</javaee-web.version>
+    <jsf.version>1.2_09-b01-BETA1</jsf.version>
+    <jboss.version>7.1.1.Final</jboss.version>
+    <jmimemagic.version>0.1.2</jmimemagic.version>
+    <jinterface.version>1.5.3.2</jinterface.version>
+    <joda-time.version>1.6.2</joda-time.version>
+    <jsdoc.version>1.4.1</jsdoc.version>
+    <jslint.version>2007-10-25</jslint.version>
+    <json.version>20190722</json.version>
+    <jstd.version>1.3.2</jstd.version>
+    <jts.version>1.11</jts.version>
+    <jsunit.version>2.1.4</jsunit.version>
+    <junit.version>4.10</junit.version>
+    <jxpath.version>1.2</jxpath.version>
+    <log4j.version>2.13.0</log4j.version>
+    <plexus.version>1.5.9</plexus.version>
+    <postgis-jdbc.version>1.5.2</postgis-jdbc.version>
+    <postgresql.version>9.1-901.jdbc4</postgresql.version>
+    <rabbitmq.version>5.8.0</rabbitmq.version>
+    <saxon.version>9.1.0.8</saxon.version>
+    <servicemix-mail.version>1.4.1_2</servicemix-mail.version>
+    <slf4j.version>1.7.30</slf4j.version>
+    <smack.version>3.1.0</smack.version>
+    <spring.version>5.2.3.RELEASE</spring.version>
+    <surefire-junit.version>2.4.3</surefire-junit.version>
+    <testng.version>6.8</testng.version>
+    <xalan.version>2.7.1</xalan.version>
+    <xerces.version>2.9.1</xerces.version>
+    <xml-apis.version>1.4.01</xml-apis.version>
+    <java-mail.version>1.6.2</java-mail.version>
+    <simpleJavaMailVersion>5.5.1</simpleJavaMailVersion>
+    <restEasyVersion>4.5.3.Final</restEasyVersion>
+
+    <!-- External plugin versions -->
+    <assembly.plugin.version>2.3</assembly.plugin.version>
+    <!--<buildnumber.plugin.version>1.1</buildnumber.plugin.version>-->
+    <compiler.plugin.version>2.5.1</compiler.plugin.version>
+    <dependency.plugin.version>2.5.1</dependency.plugin.version>
+    <ear.plugin.version>2.6</ear.plugin.version>
+    <exec.plugin.version>1.2</exec.plugin.version>
+    <git.scm.provider.version>1.7</git.scm.provider.version>
+    <jstd.plugin.version>1.3.2.5</jstd.plugin.version>
+    <license.plugin.version>1.9.0</license.plugin.version>
+    <m2e-lifecycle.plugin.version>1.0.0</m2e-lifecycle.plugin.version>
+    <plexus.plugin.version>1.3.8</plexus.plugin.version>
+    <scm.api.version>1.7</scm.api.version>
+    <shade.plugin.version>1.6</shade.plugin.version>
+    <surefire.plugin.version>2.12.4</surefire.plugin.version>
+    <versions.plugin.version>1.3.1</versions.plugin.version>
+    <war.plugin.version>2.1.1</war.plugin.version>
+
+    <!-- Build parameters -->
+    <java.compiler.version>1.8</java.compiler.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  </properties>
+
+  <!-- Project-wide dependency management. Manages versions, excludes, scopes,
+    etc for all dependencies in NICS. NOTE: All dependency details should be
+    defined here. Versions of external dependencies should be specified as properties
+    above and then referenced in here. The full dependency definition should
+    be specified in this section (submodules can override a definition if need
+    be, though that is discouraged). When including a dependency in a submodule
+    all that is needed is the 'groupId' and 'artifactId'; all other information
+    should be inherited from this section. -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- External dependencies -->
+      <dependency>
+        <groupId>com.db4o</groupId>
+        <artifactId>db4o-full-java5</artifactId>
+        <version>${db4o.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.rabbitmq</groupId>
+        <artifactId>amqp-client</artifactId>
+        <version>${rabbitmq.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.vividsolutions</groupId>
+        <artifactId>jts</artifactId>
+        <version>${jts.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>${commons-cli.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>${commons-collections.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-digester</groupId>
+        <artifactId>commons-digester</artifactId>
+        <version>${commons-digester.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons-fileupload.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>${commons-httpclient.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-jxpath</groupId>
+        <artifactId>commons-jxpath</artifactId>
+        <version>1.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>ant</groupId>
+            <artifactId>ant-optional</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons-lang.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons-logging.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging-api</artifactId>
+        <version>${commons-logging.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>it.geosolutions</groupId>
+        <artifactId>geoserver-manager</artifactId>
+        <version>${geoserver-manager.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+        <scope>provided</scope>
+        <version>${javaee-web.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>net.jsunit</groupId>
+        <artifactId>jsunit-testRunner</artifactId>
+        <version>${jsunit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.saxon</groupId>
+        <artifactId>saxon</artifactId>
+        <version>${saxon.version}</version>
+        <classifier>dom</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-core</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-exec</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ftp</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-http</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mina</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-script</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-stream</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-velocity</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-xmpp</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-rabbitmq</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test-spring</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.surefire</groupId>
+        <artifactId>surefire-junit</artifactId>
+        <version>${surefire-junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicemix.bundles</groupId>
+        <artifactId>org.apache.servicemix.bundles.javax.mail</artifactId>
+        <version>${servicemix-mail.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.erlang.otp</groupId>
+        <artifactId>jinterface</artifactId>
+        <version>${jinterface.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.fusesource.commonman</groupId>
+        <artifactId>commons-management</artifactId>
+        <version>${commons-management.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-cql</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-epsg-hsql</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools.jdbc</groupId>
+        <artifactId>gt-jdbc-postgis</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-opengis</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-referencing</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-shapefile</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-wfs</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-c3p0</artifactId>
+        <version>${hibernate-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>${hibernate-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-spatial</artifactId>
+        <version>${hibernate-spatial.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.geotools</groupId>
+        <artifactId>gt-xml</artifactId>
+        <version>${geotools.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>xml-apis</groupId>
+        <artifactId>xml-apis</artifactId>
+        <version>${xml-apis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jivesoftware.smack</groupId>
+        <artifactId>smack</artifactId>
+        <version>${smack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jivesoftware.smack</groupId>
+        <artifactId>smackx</artifactId>
+        <version>${smack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${json.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgis</groupId>
+        <artifactId>postgis-jdbc</artifactId>
+        <version>${postgis-jdbc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${testng.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>xalan</groupId>
+        <artifactId>xalan</artifactId>
+        <version>${xalan.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>xerces</groupId>
+        <artifactId>xercesImpl</artifactId>
+        <version>${xerces.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.resteasy</groupId>
+        <artifactId>resteasy-client</artifactId>
+        <version>${restEasyVersion}</version>
+      </dependency>
+
+      <!-- NICS internal module dependencies. NOTE: These versions are set to
+        ${project.version} so that they always reflect the version of the component/library
+        that goes along with this version of NICS. -->
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>dao-lib</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>email-alert</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>encryption-lib</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>entities</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>geoserver-rest-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>rabbitmq-admin-interface</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>rabbitmq-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>${hsqldb.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>web-service-request-lib</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.nics.common</groupId>
+        <artifactId>xml-email</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>htmlunit</artifactId>
+        <version>${htmlunit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.owasp.esapi</groupId>
+        <artifactId>esapi</artifactId>
+        <version>${esapi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.simplejavamail</groupId>
+        <artifactId>simple-java-mail</artifactId>
+        <version>${simpleJavaMailVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.mit.ll.em.api</groupId>
+        <artifactId>api-rest-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>${gson.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+
+  <!-- Build settings -->
+  <build>
+    <!-- Manages versions and configuration of plugins for all child poms -->
+    <pluginManagement>
+      <plugins>
+        <!-- External plugins -->
+        <plugin>
+          <!-- This plugin formats source files by checking and adding a copyright
+            header if it's missing. -->
+          <groupId>com.mycila.maven-license-plugin</groupId>
+          <artifactId>maven-license-plugin</artifactId>
+          <version>${license.plugin.version}</version>
+          <configuration>
+            <aggregate>true</aggregate>
+            <header>${basedir}/copyright.txt</header>
+            <strictCheck>true</strictCheck>
+            <properties>
+              <year>2021</year>
+            </properties>
+            <useDefaultExcludes>false</useDefaultExcludes>
+
+            <!-- Additional file-to-comment-style mappings -->
+            <mapping>
+              <java>SLASHSTAR_STYLE</java>
+              <xslt>XML_STYLE</xslt>
+            </mapping>
+
+            <excludes>
+              <!-- Some default excludes -->
+              <exclude>**/*~</exclude>
+              <exclude>**/*.jar</exclude>
+              <exclude>**/*.zip</exclude>
+              <exclude>**/*.tar*</exclude>
+              <exclude>**/*.pdf</exclude>
+              <exclude>**/*.jpg</exclude>
+              <exclude>**/*.png</exclude>
+              <exclude>**/*.gif</exclude>
+              <exclude>**/*.ico</exclude>
+              <exclude>**/*.bmp</exclude>
+              <exclude>**/*.tif*</exclude>
+              <exclude>**/*.cr2</exclude>
+              <exclude>**/MANIFEST.MF</exclude>
+              <exclude>**/.classpath</exclude>
+              <exclude>**/.project</exclude>
+              <exclude>**/.settings/**</exclude>
+              <exclude>**/target/**</exclude>
+              <exclude>**/test-output/**</exclude>
+              <exclude>**/META-INF/services/**</exclude>
+              <exclude>**/.git</exclude>
+              <exclude>**/.gitignore</exclude>
+              <exclude>**/.git/**</exclude>
+              <exclude>**/*.log</exclude>
+              <exclude>**/*.txt</exclude>
+
+              <!-- Project-specific excludes -->
+            </excludes>
+          </configuration>
+          <inherited>false</inherited>
+          <executions>
+            <execution>
+              <id>update-copyright</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>format</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>verify-copyright</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <!-- This produces is used to assemble files into an archive of some
+            type. -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>${assembly.plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>edu.mit.ll.nics.assembly</groupId>
+              <artifactId>archive-assembly</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>edu.mit.ll.nics.assembly</groupId>
+              <artifactId>spring-deploy-assembly</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                <goal>single</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <!-- Maven compiler plugin for specifying java compiler options -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${compiler.plugin.version}</version>
+          <configuration>
+            <source>${java.compiler.version}</source>
+            <target>${java.compiler.version}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${dependency.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ear-plugin</artifactId>
+          <version>${ear.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${shade.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefire.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${war.plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${exec.plugin.version}</version>
+        </plugin>
+        <plugin>
+          <!-- This plugin is used update the version numbers of the project during
+            the release process. -->
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versions.plugin.version}</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-maven-plugin</artifactId>
+          <version>${plexus.plugin.version}</version>
+        </plugin>
+
+        <!-- MITLL plugins -->
+
+        <!--This plugin's configuration is used to store Eclipse m2e settings
+          only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>${m2e-lifecycle.plugin.version}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      org.apache.maven.plugins
+                    </groupId>
+                    <artifactId>
+                      maven-dependency-plugin
+                    </artifactId>
+                    <versionRange>[2.1,)</versionRange>
+                    <goals>
+                      <goal>copy-dependencies</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      org.apache.maven.plugins
+                    </groupId>
+                    <artifactId>
+                      maven-ear-plugin
+                    </artifactId>
+                    <versionRange>[2.6,)</versionRange>
+                    <goals>
+                      <goal>
+                        generate-application-xml
+                      </goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      edu.mit.ll.nics
+                    </groupId>
+                    <artifactId>
+                      javascript-maven-plugin
+                    </artifactId>
+                    <versionRange>[1.1,)</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>
+                      buildnumber-maven-plugin
+                    </artifactId>
+                    <versionRange>[1.0,)</versionRange>
+                    <goals>
+                      <goal>create-timestamp</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <!-- Configure project-wide plugins -->
+    <plugins>
+      <plugin>
+        <!-- We want to apply license plugin at the top level of the project
+          so it is applied to all projects -->
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <!-- Use the maven-compiler-plugin across the whole project -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <!-- Generate the buildnumber in every module -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>hibernate-spatial</id>
+      <name>Hibernate Spatial</name>
+      <url>http://www.hibernatespatial.org/repository</url>
+    </repository>
+    <repository>
+      <id>osgeo-geotools</id>
+      <name>OSGeo Geotools</name>
+      <url>http://download.osgeo.org/webdav/geotools</url>
+    </repository>
+    <repository>
+      <id>geosolutions</id>
+      <name>GeoSolutions Repository</name>
+      <url>http://maven.geo-solutions.it</url>
+    </repository>
+  </repositories>
+</project>

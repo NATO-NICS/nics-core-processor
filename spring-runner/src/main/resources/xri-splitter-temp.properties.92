@@ -1,0 +1,5 @@
+# Properties file that the spring .xml file can reference
+
+toGst=rabbitmq://localhost:5672?amqExchange=amq.topic&amqExchangeType=topic&requestedHeartbeat=0&routingKey=extFeeds.pli.xri.gst&noAck=false&user=guest&password=guest&msgPersistent=false&msgContentType=text
+
+toGeo=rabbitmq://localhost:5672?amqExchange=amq.topic&amqExchangeType=topic&requestedHeartbeat=0&routingKey=extFeeds.pli.xri.geo&noAck=false&user=guest&password=guest&msgPersistent=false&msgContentType=text

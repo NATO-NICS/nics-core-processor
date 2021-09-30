@@ -1,0 +1,3 @@
+org.apache.camel.converter
+org.apache.camel.component.bean
+org.apache.camel.component.file

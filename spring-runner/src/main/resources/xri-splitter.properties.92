@@ -1,0 +1,19 @@
+# Properties file that the spring .xml file can reference
+# Note:  If you copyed URIs from camel, there can't be &amp; instances in here.  It should just be '&'
+
+incomingXri=rabbitmq://localhost:5672?amqExchange=amq.topic&amqExchangeType=topic&requestedHeartbeat=0&routingKey=extFeeds.pli.xri.geo&noAck=false&user=guest&password=guest&msgPersistent=false&msgContentType=text
+
+# STDOUT for testing
+out="stream:out"
+
+# File to write Aircraft to
+affFile=file://messages?autoCreate=true&fileName=aff.xml&fileExist=Append
+
+# Local rabbit topic to send air tracks to for processing to GML
+rabbitAir=rabbitmq://localhost:5672?amqExchange=amq.topic&amqExchangeType=topic&requestedHeartbeat=0&routingKey=extFeeds.pli.xri.gst.air&noAck=false&user=guest&password=guest&msgPersistent=false&msgContentType=text
+
+# Local rabbit topic to send ground tracks to for processing to GML
+rabbitGround=rabbitmq://localhost:5672?amqExchange=amq.topic&amqExchangeType=topic&requestedHeartbeat=0&routingKey=extFeeds.pli.xri.gst.ground&noAck=false&user=guest&password=guest&msgPersistent=false&msgContentType=text
+
+# File to write Ground vehicles to
+groundFile=file://messages?autoCreate=true&fileName=ground.xml&fileExist=Append

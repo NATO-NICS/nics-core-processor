@@ -1,0 +1,126 @@
+<!--
+
+    Copyright (c) 2008-2021, Massachusetts Institute of Technology (MIT)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<list>
+				<value>config/log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Property file for GMLToDBProcessor bean -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location">
+			<value>config/geodatafeed-consumer.properties</value>
+		</property>
+	</bean>
+
+	<!-- 
+	<bean id="machAgent" class="edu.mit.ll.nics.mach.agent.MachAgent" >
+		MACH endpoint, usually rabbitmq 
+	    <property name="machUri" value="rabbitmq://localhost:5672?amqExchange=amq.topic&amp;amqExchangeType=topic&amp;requestedHeartbeat=0&amp;routingKey=LDDRS.mach.components.geodatafeedConsumer&amp;noAck=false&amp;user=guest&amp;password=guest&amp;msgPersistent=false&amp;msgContentType=text" />
+	    
+	    The name of this component as used in appMgr, etc 
+	    <property name="componentName" value="geodatafeed-consumer" />
+	    
+	    The node/hostname/ip this component is running on 
+	    <property name="node" value="TODO" />
+	    
+	     
+	    	For backward compatibility.  Checking message body for this text, instead
+	    	of a real JSON HeartbeatMessage
+	    	Default: HEARTBEAT
+	   
+	    <property name="nonJsonHeartbeatContent" value="HEARTBEAT" />
+	    
+	    
+	    	Interval at which the agent sends a heartbeat request to MACH.  Intended to be a longer form
+	    	ping message, saying "I'm still here, if you didn't know".  Also will know when MACH hasn't
+	    	responded, implying MACH failed, and machAgent could send alerts if so configured.
+	    	
+	        Default: 5
+	   
+	    <property name="hbIntervalInMinutes" value="5" />
+	</bean>	
+	-->
+	 
+	<bean id="geoToPostGIS" class="edu.mit.ll.nics.processor.gml.consumer.GMLToDBProcessor"
+		init-method="init">
+		<property name="dbhost" value="${db.host}" />
+		<property name="dbport" value="${db.port}" />
+		<property name="dbname" value="${db.name}" />
+		<property name="dbuser" value="${db.user}" />
+		<property name="dbpassword" value="${db.pass}" />
+		<property name="gml_version" value="${gml.version}" />
+		<property name="crs" value="${crs}" />
+		<property name="db_reset_interval" value="${db.reset_interval}" />
+<!-- 		<property name="dateFormatPattern" value="${dateFormatPattern}" /> -->
+		<property name="timestampPropertyName" value="${timestampPropertyName}" />
+		<property name="log4jPropertyFile" value="${log4jPropertyFile}" />
+	</bean>
+	
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<!-- Placeholder for a properties file	-->
+		<propertyPlaceholder id="props" location="file:config/geodatafeed-consumer.properties" />
+
+		<!-- A Camel route -->
+		<route id="gml2gisRoute">
+			<from uri="{{camel.gmlUrl}}" />
+			
+     		<!-- MACH filtering -->
+            <when>
+                    <simple>${bodyAs(String)} contains 'HEARTBEAT' and ${bodyAs(String)} contains 'mach'</simple>
+                    <transform>
+                    	<simple>${properties:camel.mach.node_and_name}</simple>
+                    </transform>
+                    <to uri="{{camel.mach.destination}}" />
+
+                    <stop/>
+            </when>
+			<!-- END MACH filtering -->
+
+			
+			<process ref="geoToPostGIS" />
+			
+			<!-- For debugging
+			<to uri="stream:out" /> -->
+			 
+		</route>
+				
+	</camelContext>
+
+</beans>

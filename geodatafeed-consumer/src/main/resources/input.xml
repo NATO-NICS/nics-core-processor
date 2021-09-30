@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><wfs:FeatureCollection xsi:schemaLocation="http://mapserver.nics.ll.mit.edu/NICS http://nics-ca-incident-mapserver1.nics.ll.mit.edu:8080/geoserver/nics/wfs?service=WFS&amp;version=1.0.0&amp;request=DescribeFeatureType&amp;typeName=NICS%3Aca_corona http://www.opengis.net/wfs  http://nics-ca-incident-mapserver1.nics.ll.mit.edu:8080/geoserver/schemas/wfs/1.0.0/WFS-basic.xsd" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:NICS="http://mapserver.nics.ll.mit.edu/NICS" xmlns:wfs="http://www.opengis.net/wfs"><gml:featureMember>
+<!--
+
+    Copyright (c) 2008-2021, Massachusetts Institute of Technology (MIT)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<NICS:ca_corona>
+	<NICS:id>info:us.ma.mit.ll.nics/pli.json.v1:us.ca.calfire.westcov/E5</NICS:id>
+	<NICS:name>E5</NICS:name>
+	<NICS:description>WCV ENGINE 5&lt;br/&gt;&lt;b&gt;organization: &lt;/b&gt;WESTCOV&lt;br/&gt;</NICS:description>
+	<NICS:geom><gml:Point srsName="EPSG:4326"><gml:coordinates>+34.01990,-117.89061</gml:coordinates></gml:Point></NICS:geom>
+	<NICS:speed>0.0</NICS:speed>
+	<NICS:course>324</NICS:course>
+	<NICS:extended>{"organization":"WESTCOV"}</NICS:extended>
+	<NICS:timestamp>2 Apr 2014 22:34:12 GMT</NICS:timestamp>
+	<NICS:version>0.0.1</NICS:version>
+</NICS:ca_corona>
+</gml:featureMember></wfs:FeatureCollection>
+
+
+<?xml version="1.0" encoding="UTF-8"?><wfs:FeatureCollection xsi:schemaLocation="http://mapserver.nics.ll.mit.edu/NICS http://nics-ca-incident-mapserver1.nics.ll.mit.edu:8080/geoserver/NICS/wfs?service=WFS&amp;version=1.0.0&amp;request=DescribeFeatureType&amp;typeName=NICS%3Aca_ventura http://www.opengis.net/wfs  http://nics-ca-incident-mapserver1.nics.ll.mit.edu:8080/geoserver/schemas/wfs/1.0.0/WFS-basic.xsd" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:NICS="http://mapserver.nics.ll.mit.edu/NICS" xmlns:wfs="http://www.opengis.net/wfs"><gml:featureMember><NICS:ca_ventura><NICS:id>info:us.ma.mit.ll.nics/Ventura:us.ca.ventura/EMS61</NICS:id><NICS:name>EMS61</NICS:name><NICS:description>Ventura - EMS61</NICS:description><NICS:geom><gml:Point srsName="EPSG:4326"><gml:coordinates>34.203296,-119.149897</gml:coordinates></gml:Point></NICS:geom><NICS:speed>0</NICS:speed><NICS:course>0</NICS:course><NICS:extended>null</NICS:extended><NICS:timestamp>2 Apr 2014 22:34:12 GMT</NICS:timestamp><NICS:version>0.0.1</NICS:version></NICS:ca_ventura></gml:featureMember></wfs:FeatureCollection>

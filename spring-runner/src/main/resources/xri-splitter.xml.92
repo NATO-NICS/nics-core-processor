@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<list>											
+				<value>log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Reference a processor bean here 
+	<bean id="someProcBean" class="edu.mit.ll.nics.processors.some.BeanProcessor">
+		<property name="someprop" value="someval" />
+	</bean>
+	-->
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<!-- Placeholder for a properties file 
+			 Reference a property like this: "{{someProperty}}", e.g.:
+			 	<from uri="{{sourceURI}}" />
+			 When in app.properties there's an entry:
+			 	sourceURI=someuri	
+		-->
+		<propertyPlaceholder id="props" location="file:xri-splitter.properties" />
+		
+		<!-- Split XRI into aff and ground -->
+                <route id="SplitGroundAndAircraftRoute">
+			<!-- Copy of XRI feed -->
+                        <from uri="{{incomingXri}}" />
+			<!--<transform><simple>\n\nBODY${in.body}</simple></transform>-->
+                        <when>
+                                <simple>${body} regex '.*UnitID="((H)+|(HT)+|(AA)+|(AT)+|(LP)+)+[0-9]+".*'</simple>
+                                <!-- Send to aff processor -->
+                                <to uri="seda:affout"/>
+                                <stop/> <!-- Must stop it, or else it'll continue to the next to -->
+                        </when>
+			<!-- Testing, only want to see aircraft make it -->
+                        <to uri="seda:groundout" /> <!-- Send to ground processor -->
+                </route>
+
+		<route id="ProcessAircraftRoute" >
+			<from uri="seda:affout" />
+			<!--<to uri="stream:out" />-->
+			<!--<to uri="{{affFile}}" /> -->
+			<to uri="{{rabbitAir}}" />
+		</route>
+
+		<route id="ProcessGroundRoute" >
+			<from uri="seda:groundout" />
+			<!--<to uri="stream:out" />-->
+			<!--<to uri="{{groundFile}}" />-->
+			<to uri="{{rabbitGround}}" />
+		</route>
+
+	</camelContext>
+
+</beans>
